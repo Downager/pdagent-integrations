@@ -32,19 +32,12 @@
 
 # Parse the Zabbix message body. The body MUST be in this format:
 #
-# name:{TRIGGER.NAME}
-# id:{TRIGGER.ID}
-# status:{TRIGGER.STATUS}
-# hostname:{HOSTNAME}
-# ip:{IPADDRESS}
-# value:{TRIGGER.VALUE}
-# event_id:{EVENT.ID}
-# severity:{TRIGGER.SEVERITY}
+# name:{TRIGGER.NAME}, id:{TRIGGER.ID}, status:{TRIGGER.STATUS}, hostname:{HOSTNAME}, ip:{IPADDRESS}, value:{TRIGGER.VALUE}, event_id:{EVENT.ID}, severity:{TRIGGER.SEVERITY}
 #
 def _parse_zabbix_body(body_str):
     body = {}
     key, val = (None, None)
-    for line in body_str.strip().split('\n'):
+    for line in body_str.strip().split(', '):
         keyval = line.strip().split(':', 1)
         if len(keyval) == 2:
             key, val = keyval
